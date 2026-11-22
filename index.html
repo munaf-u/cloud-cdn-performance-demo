@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cloud CDN Performance Demonstration</title>
+  <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+  <header class="hero">
+    <p class="eyebrow">CLOUD COMPUTING • PRACTICAL PROJECT</p>
+    <h1>Cloud CDN Performance Demonstration</h1>
+    <p>Observe how a content delivery network serves static website assets from Cloudflare's global network.</p>
+    <span class="badge">Demo website • Static assets</span>
+  </header>
+
+  <main>
+    <section class="panel">
+      <h2>Live browser measurements</h2>
+      <p>Press the button to request the same test asset several times and record browser-observed response durations.</p>
+      <div class="actions">
+        <button id="measure">Run 5 measurements</button>
+        <button id="clear" class="secondary">Clear results</button>
+      </div>
+      <p id="status" role="status" aria-live="polite">Ready to measure.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Request</th><th>Duration (ms)</th><th>Transfer size (bytes)</th></tr></thead>
+          <tbody id="results"><tr><td colspan="3">No measurements yet.</td></tr></tbody>
+        </table>
+      </div>
+      <p class="note">Browser timings can be affected by local browser cache, network conditions, and the distance to the test device. Use DevTools Network headers as the primary evidence of Cloudflare delivery.</p>
+    </section>
+
+    <section class="panel">
+      <h2>CDN evidence</h2>
+      <p>After deployment, open Developer Tools → Network, reload this page, and select <code>/assets/test.svg</code>.</p>
+      <ul>
+        <li><code>Server: cloudflare</code> and <code>CF-Ray</code> indicate the request passed through Cloudflare.</li>
+        <li><code>CF-Cache-Status</code>, if present, describes the cache decision. <code>HIT</code> means served from cache; <code>MISS</code> means it was not already cached.</li>
+        <li>Record the response headers and timings. Do not assume every request must be a HIT.</li>
+      </ul>
+      <img class="sample" src="/assets/test.svg" alt="Illustration representing a static asset delivered through a CDN">
+    </section>
+
+    <section class="panel">
+      <h2>Experiment procedure</h2>
+      <ol>
+        <li>Run the same website locally and record a baseline measurement.</li>
+        <li>Deploy the unchanged files to Cloudflare Pages.</li>
+        <li>Open the deployed website from the same device and network.</li>
+        <li>Measure several requests and inspect the response headers.</li>
+        <li>Compare the results, noting that local-versus-cloud timing is an illustrative comparison, not a perfectly controlled benchmark.</li>
+      </ol>
+    </section>
+  </main>
+  <footer>Educational demonstration • No personal data is collected.</footer>
+  <script src="/assets/app.js"></script>
+</body>
+</html>
